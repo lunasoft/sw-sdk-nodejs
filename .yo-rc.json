@@ -1,0 +1,9 @@
+{
+  "generator-node": {
+    "promptValues": {
+      "authorName": "Flavio Ochoa",
+      "authorEmail": "flavio.ochoa@sw.com.mx",
+      "authorUrl": ""
+    }
+  }
+}
