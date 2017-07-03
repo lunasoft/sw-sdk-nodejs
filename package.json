@@ -1,6 +1,6 @@
 {
   "name": "sw-sdk-nodejs",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Node.js Library for SW Services",
   "homepage": "https://github.com/lunasoft/sw-sdk-nodejs",
   "author": {
@@ -43,6 +43,5 @@
     "testEnvironment": "node"
   },
   "license": "MIT",
-  "dependencies": {
-  }
+  "dependencies": {}
 }
