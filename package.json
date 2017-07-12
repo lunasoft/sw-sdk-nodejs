@@ -1,6 +1,6 @@
 {
   "name": "sw-sdk-nodejs",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "Node.js Library for SW Services",
   "homepage": "https://github.com/lunasoft/sw-sdk-nodejs",
   "author": {
@@ -9,9 +9,10 @@
     "url": ""
   },
   "files": [
-    "lib"
+    "lib",
+    "SWSDK.js"
   ],
-  "main": "lib/index.js",
+  "main": "SWSDK.js",
   "keywords": [
     ""
   ],
@@ -21,7 +22,9 @@
     "eslint": "^3.18.0",
     "eslint-config-xo-space": "^0.16.0",
     "jest": "^19.0.2",
-    "jest-cli": "^20.0.0"
+    "jest-cli": "^20.0.0",
+    "chai": "^4.0.2",
+    "mocha": "^3.4.2"
   },
   "scripts": {
     "prepublish": "nsp check",
@@ -40,8 +43,5 @@
     "testEnvironment": "node"
   },
   "license": "MIT",
-  "dependencies": {
-    "chai": "^4.0.2",
-    "mocha": "^3.4.2"
-  }
+  "dependencies": {}
 }
