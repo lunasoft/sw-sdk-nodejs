@@ -21,6 +21,7 @@
     "mocha": "^3.4.2"
   },
   "scripts": {
+    "test": "mocha lib/Tests/"
   },
   "repository": "git@github.com:/lunasoft/sw-sdk-nodejs.git",
   "license": "MIT",
