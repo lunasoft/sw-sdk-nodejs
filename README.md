@@ -531,10 +531,11 @@ cancelation.CancelationByXML(callback);
 #### Códigos de respuesta de folios de cancelación ####
 | Código  | Mensaje | Descripcion |
 | ------------- | ------------- | ------------- |
-| 201  | UUID Cancelado exitosamente  | Se considera cancelado correctamente. Deberá aparecer con estatus Cancelado ante el SAT de 0 a 72 hrs posterior a la cancelación. |
-| 202 |  UUID Previamente cancelado | Se considera previamente cancelado. Estatus Cancelado ante el SAT. |
-| 203 | UUID No corresponde el RFC del emisor y de quien solicita la cancelación.  |  |
-| 205 | No Existe  | El sat da una prorroga de 72 hrs para que el comprobante aparezca con estatus Vigente posterior al envió por parte del Proveedor de Certificación de CFDI. Puede que algunos comprobantes no aparezcan al momento, es necesario esperar por lo menos 72 hrs. |
+| 201  | Solicitud de cancelación exitosa | Se considera una solicitud de cancelación exitosa, sin embargo esto no asegura su cancelación |
+| 202 |  Folio Fiscal Previamente Cancelado | Se considera solicitud de cancelación previamente enviada. Estatus Cancelado ante el SAT |
+| 203 | Folio Fiscal No Correspondiente al Emisor | |
+| 204 | Folio Fiscal No Aplicable a Cancelación  | |
+| 205 | Folio Fiscal No Existente | El SAT da una prorroga de 48 hrs para que el comprobante aparezca con estatus Vigente posterior al envió por parte del Proveedor de Certificación de CFDI. Puede que algunos comprobantes no aparezcan al momento, es necesario esperar por lo menos 48 hrs.|
 
 Para mayor referencia de estas respuesta, favor de visitar el siguiente [link](https://developers.sw.com.mx/knowledge-base/cancelacion-cfdi/).
 
