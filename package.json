@@ -3,11 +3,20 @@
   "version": "1.3.1",
   "description": "Node.js Library for SW Services",
   "homepage": "https://github.com/lunasoft/sw-sdk-nodejs",
-  "author": {
-    "name": "Soporte SW",
-    "email": "soporte@sw.com.mx",
-    "url": "https://developers.sw.com.mx/"
-  },
+  "authors": [
+    {
+      "name": "Flavio Ochoa",
+      "email": "flavio.ochoa@sw.com.mx"
+    },
+    {
+      "name": "Aeyrton Villalobos",
+      "email": "aeyrton.villalobos@sw.com.mx"
+    },
+    {
+      "name": "Sebastian Vidal",
+      "email": "sebastian.vidal@sw.com.mx"
+    }
+  ],
   "files": [
     "lib",
     "SWSDK.js"
