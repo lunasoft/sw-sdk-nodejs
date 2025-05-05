@@ -26,16 +26,22 @@
     ""
   ],
   "devDependencies": {
+    "axios": "^0.25.0",
     "chai": "^4.3.4",
-    "mocha": "^3.4.2",
-    "axios": "^0.25.0"
+    "mocha": "^3.4.2"
   },
   "scripts": {
-    "test": "mocha lib/Tests/"
+    "test": "mocha lib/Tests/",
+    "test:watch": "mocha lib/Tests/ --watch"
   },
   "repository": "git@github.com:/lunasoft/sw-sdk-nodejs.git",
   "license": "MIT",
   "dependencies": {
-    "axios": "^0.25.0"
+    "axios": "^0.25.0",
+    "sw-sdk-nodejs": "file:"
+  },
+  "mocha": {
+    "spec": "lib/Tests/**/*.js",
+    "timeout": 30
   }
 }
