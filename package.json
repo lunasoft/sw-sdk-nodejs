@@ -38,7 +38,11 @@
   "license": "MIT",
   "dependencies": {
     "axios": "^0.25.0",
-    "sw-sdk-nodejs": "file:"
+    "libxmljs": "^1.0.11",
+    "node-forge": "^1.3.1",
+    "sw-sdk-nodejs": "file:",
+    "xmldom": "^0.6.0",
+    "xpath": "^0.0.34"
   },
   "mocha": {
     "spec": "lib/Tests/**/*.js",
