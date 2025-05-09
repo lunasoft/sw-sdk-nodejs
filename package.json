@@ -34,7 +34,10 @@
     "test": "mocha lib/Tests/",
     "test:watch": "mocha lib/Tests/ --watch"
   },
-  "repository": "git@github.com:/lunasoft/sw-sdk-nodejs.git",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:/lunasoft/sw-sdk-nodejs.git"
+  },
   "license": "MIT",
   "dependencies": {
     "axios": "^0.25.0",
