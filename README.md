@@ -1,8 +1,8 @@
-# SDK Node.JS
+# SDK Node.js
 
 [![SW sapien](https://dka575ofm4ao0.cloudfront.net/pages-transactional_logos/retina/68712/SW_smarter-Servicios_web.png)](http://sw.com.mx/)
 
-Librería **Node.JS** para el comsumo de los servicios de **SW sapien®**.
+Librería **Node.js** para el consumo de los servicios de **SW sapien®**.
 
 ## Contenido
 
@@ -23,32 +23,32 @@ Librería **Node.JS** para el comsumo de los servicios de **SW sapien®**.
 
 ### Dependencias
 
-- [Chai](http://chaijs.com/) y [Mocha](https://mochajs.org/) para las pruebas Unitarias
-- [NPM](https://www.npmjs.com/) Para descargar nuestro SDK.
+- [Chai](http://chaijs.com/) y [Mocha](https://mochajs.org/) para pruebas unitarias.
+- [npm](https://www.npmjs.com/) para descargar nuestro SDK.
 
 ---
 
 ### Documentación
 
-- [Documentacion Oficial Servicios](https://developers.sw.com.mx/)
+- [Documentación oficial de servicios](https://developers.sw.com.mx/)
 - [API Reference](https://documenter.getpostman.com/view/15933150/2s9YXnyyKn)
 
 ---
 
 ### Instalación
 
-Para poder hacer uso de nuestro SDK para consumir el servicio **REST** que **SW sapien®** le provee primero es necesario tener instalado **Node.js®** y posteriormente instalar el manejador de paquetes **npm**.
+Para usar el SDK y consumir los servicios **REST** que **SW sapien®** provee, primero es necesario tener instalado **Node.js®** y posteriormente instalar el manejador de paquetes **npm**.
 
 #### Instalar Node
 
 - Paso 1:
-  Dirigirnos a la siguiente pagina web https://nodejs.org/en/download/current
+  Dirigirnos a la siguiente página web https://nodejs.org/en/download/current
 - Paso 2:
-  Seleccionar la versión más reciente de acuerdo a el sistema operativo que se tenga y dar click para comenzar la descarga
+  Seleccionar la versión más reciente acorde al sistema operativo que se tenga y hacer clic para comenzar la descarga
 - Paso 3:
-  Ejecutar el archivo descargado y seguir los pasos de instalacion
+  Ejecutar el archivo descargado y seguir los pasos de instalación
 
-#### Preparar nuestro ambiente de Desarrollo
+#### Preparar nuestro ambiente de desarrollo
 
 - Paso 1:
   Dentro de la carpeta de tu proyecto abrir **CMD** o **PowerShell** y escribir lo siguiente:
@@ -57,7 +57,7 @@ Para poder hacer uso de nuestro SDK para consumir el servicio **REST** que **SW 
 npm install --save sw-sdk-nodejs
 ```
 
-De esta manera instala las dependencias necesarias para poder usar nuestro **SDK**.
+De esta manera instala las dependencias necesarias para usar el **SDK**.
 
 ---
 
@@ -89,7 +89,7 @@ Método que permite obtener un **token de autenticación** indispensable para co
 
 Este método recibe los siguientes parámetros:
 
-- Url Servicios SW
+- URL de servicios SW
 - Usuario y Contraseña
 
 **Obtener Token**
@@ -100,7 +100,7 @@ const Authentication = require("sw-sdk-nodejs").Authentication;
 const params = {
   url: "https://services.test.sw.com.mx",
   user: "demo",
-  password: "123456789",
+  password: "123456789"
 };
 
 const auth = Authentication.auth(params);
@@ -123,16 +123,16 @@ auth.Token((err, res) => {
 Timbrado CFDI
 </summary>
 
-Método que recibe el contenido de un **xml** previamente sellado en formato **string** ó en **base64**, si la factura y las credenciales del usuario son correctos devuelve el complemento timbre en un string (**TFD**), en caso contrario lanza una excepción.
+Método que recibe el contenido de un **XML** previamente sellado en formato **string** o **base64**, si la factura y las credenciales del usuario son correctos devuelve el complemento timbre en un string (**TFD**), en caso contrario lanza una excepción.
 
 > [!IMPORTANT]
-> El envio en formato **base64** es opcional, para utilizarlo se debe indicar con _true_, por defecto se tomará el valor _false_.
+> El envío en formato **base64** es opcional, para utilizarlo se debe indicar con _true_, por defecto se tomará el valor _false_.
 
 Este método recibe los siguientes parámetros:
 
-- Archivo en formato **string** ó **base64**
-- Usuario y Contraseña ó Token
-- Url Servicios SW
+- Archivo en formato **string** o **base64**
+- Usuario y Contraseña o Token
+- URL de servicios SW
 
 **Ejemplo de consumo de la librería para Timbrado CFDI en formato string utilizando usuario y contraseña**
 
@@ -144,7 +144,7 @@ const StampService = require("sw-sdk-nodejs").StampService;
 const params = {
   user: "demo",
   password: "123456789",
-  url: "https://services.test.sw.com.mx",
+  url: "https://services.test.sw.com.mx"
 };
 
 const xmlPath = path.join(__dirname, "fileSign.xml");
@@ -168,7 +168,7 @@ const StampService = require("sw-sdk-nodejs").StampService;
 
 const params = {
   token: "T2lYQ0t4L0R...",
-  url: "https://services.test.sw.com.mx",
+  url: "https://services.test.sw.com.mx"
 };
 
 const xmlPath = path.join(__dirname, "fileSign.xml");
@@ -190,9 +190,10 @@ const fs = require("fs");
 const path = require("path");
 const StampService = require("sw-sdk-nodejs").StampService;
 
+const isBase64 = true;
 const params = {
   token: "T2lYQ0t4L0R...",
-  url: "https://services.test.sw.com.mx",
+  url: "https://services.test.sw.com.mx"
 };
 
 const xmlPath = path.join(__dirname, "fileSign.xml");
@@ -205,15 +206,14 @@ StampService.Set(params).StampV1(xmlB64, (err, res) => {
     } else {
       console.log(res);
     }
-  }, true
-);
+  }, isBase64);
 ```
 
 **Funciones disponibles**
 - StampV1(xml, base64)
 - StampV2(xml, base64)
 - StampV3(xml, base64)
-- StampV1(xml, base64)
+- StampV4(xml, base64)
 
 </details>
 
@@ -222,26 +222,28 @@ StampService.Set(params).StampV1(xmlB64, (err, res) => {
 Emisión Timbrado
 </summary>
 
-Método que realiza el sellado y timbrado de un comprobante CFDI 4.0, recibe el contenido de un **xml** en formato **string** ó en **base64**, si la factura y las credenciales del usuario son correctos devuelve el complemento timbre en un string (**TFD**), en caso contrario lanza una excepción.
+Método que realiza el sellado y timbrado de un comprobante CFDI 4.0, recibe el contenido de un **XML** en formato **string** o **base64**, si la factura y las credenciales del usuario son correctos devuelve el complemento timbre en un string (**TFD**), en caso contrario lanza una excepción.
 
 > [!IMPORTANT]
-> El envio en formato **base64** es opcional, para utilizarlo se debe indicar con _true_, por defecto se tomará el valor _false_.
+> El envío en formato **base64** es opcional, para utilizarlo se debe indicar con _true_, por defecto se tomará el valor _false_.
 
 Este método recibe los siguientes parámetros:
 
-- Archivo en formato **String** ó **Base64**
-- Usuario y Contraseña ó Token
-- Url Servicios SW
+- Archivo en formato **string** o **base64**
+- Usuario y Contraseña o Token
+- URL de servicios SW
 
 **Ejemplo de consumo de la librería para Emisión Timbrado en formato string utilizando usuario y contraseña**
 
 ```js
-
+const fs = require("fs");
+const path = require("path");
+const IssueService = require("sw-sdk-nodejs").IssueService;
 
 const params = {
   user: "demo",
   password: "123456789",
-  url: "https://services.test.sw.com.mx",
+  url: "https://services.test.sw.com.mx"
 };
 
 const xmlPath = path.join(__dirname, "file.xml");
@@ -265,7 +267,7 @@ const IssueService = require("sw-sdk-nodejs").IssueService;
 
 const params = {
   token: "T2lYQ0t4L0R...",
-  url: "https://services.test.sw.com.mx",
+  url: "https://services.test.sw.com.mx"
 };
 
 const xmlPath = path.join(__dirname, "file.xml");
@@ -287,9 +289,10 @@ const fs = require("fs");
 const path = require("path");
 const IssueService = require("sw-sdk-nodejs").IssueService;
 
+const isBase64 = true;
 const params = {
   token: "T2lYQ0t4L0R...",
-  url: "https://services.test.sw.com.mx",
+  url: "https://services.test.sw.com.mx"
 };
 
 const xmlPath = path.join(__dirname, "file.xml");
@@ -302,22 +305,21 @@ IssueService.Set(params).IssueV1(xmlB64, (err, res) => {
     } else {
       console.log(res);
     }
-  }, true
-);
+  }, isBase64);
 ```
 
 **Funciones disponibles**
 - IssueV1(xml, base64)
 - IssueV2(xml, base64)
 - IssueV3(xml, base64)
-- IssueV1(xml, base64)
+- IssueV4(xml, base64)
 
 </details>
 
 > [!NOTE]
 > Existen varias versiones de respuesta, las cuales son las siguientes:
 
-| Version | Respuesta                                            |
+| Versión | Respuesta                                            |
 | ------- | ---------------------------------------------------- |
 | V1      | Devuelve el timbre fiscal digital                    |
 | V2      | Devuelve el timbre fiscal digital y el CFDI timbrado |
@@ -331,28 +333,28 @@ IssueService.Set(params).IssueV1(xmlB64, (err, res) => {
 
 ## Cancelación
 
-Método que realiza la cancelación de un documento xml, se puede realizar por varios métodos:
+Método que realiza la cancelación de un documento XML, se puede realizar por varios métodos:
 
 <details>
 <summary>
 Cancelación por CSD
 </summary>
 
-Método que realiza la cancelacion mediante los CSD.
+Método que realiza la cancelación mediante los CSD.
 
 Este método recibe los siguientes parámetros:
 
-- Usuario y Contraseña ó Token
-- Url Servicios SW
+- Usuario y Contraseña o Token
+- URL de servicios SW
 - UUID
 - Password (CSD)
 - RFC emisor
-- Archivo CSD en **Base64**
-- Archivo KEY en **Base64**
+- Archivo CSD en **base64**
+- Archivo KEY en **base64**
 - Motivo
 - Folio Sustitución (`null` si el motivo de cancelación es diferente de `01`)
 
-**Ejemplo de consumo de la librería para Cancelación por CSD utilizando usuario y contraseña"**
+**Ejemplo de consumo de la librería para Cancelación por CSD utilizando usuario y contraseña**
 
 ```js
 const CancelationService = require("sw-sdk-nodejs").CancelationService;
@@ -370,7 +372,7 @@ const params = {
   folioSustitucion: null
 };
 
-CancelationService.Set(params).CancelationByUUID((err, res) => {
+CancelationService.Set(params).CancelationByCSD((err, res) => {
   if (err) {
     console.error("Error:", err);
   } else {
@@ -379,7 +381,7 @@ CancelationService.Set(params).CancelationByUUID((err, res) => {
 });
 ```
 
-**Ejemplo de consumo de la librería para Cancelación por CSD utilizando token"**
+**Ejemplo de consumo de la librería para Cancelación por CSD utilizando token**
 
 ```js
 const CancelationService = require("sw-sdk-nodejs").CancelationService;
@@ -396,7 +398,7 @@ const params = {
   folioSustitucion: null
 };
 
-CancelationService.Set(params).CancelationByUUID((err, res) => {
+CancelationService.Set(params).CancelationByCSD((err, res) => {
   if (err) {
     console.error("Error:", err);
   } else {
@@ -412,20 +414,20 @@ CancelationService.Set(params).CancelationByUUID((err, res) => {
 Cancelación por PFX
 </summary>
 
-Método para realiza la cancelacion mediante el PFX.
+Método para realizar la cancelación mediante el PFX.
 
 Este método recibe los siguientes parámetros:
 
-- Usuario y Contraseña ó Token
-- Url Servicios SW
-- Archivo PFX en **Base64**
+- Usuario y Contraseña o Token
+- URL de servicios SW
+- Archivo PFX en **base64**
 - RFC emisor
-- Password (CSD)
+- Password (PFX)
 - UUID
 - Motivo
 - Folio Sustitución (`null` si el motivo de cancelación es diferente de `01`)
 
-**Ejemplo de consumo de la libreria para Cancelación por PFX utilizando usuario y contraseña**
+**Ejemplo de consumo de la librería para Cancelación por PFX utilizando usuario y contraseña**
 
 ```js
 const CancelationService = require("sw-sdk-nodejs").CancelationService;
@@ -451,7 +453,7 @@ CancelationService.Set(params).CancelationByPFX((err, res) => {
 });
 ```
 
-**Ejemplo de consumo de la libreria para Cancelación por PFX utilizando token**
+**Ejemplo de consumo de la librería para Cancelación por PFX utilizando token**
 
 ```js
 const CancelationService = require("sw-sdk-nodejs").CancelationService;
@@ -483,15 +485,15 @@ CancelationService.Set(params).CancelationByPFX((err, res) => {
 Cancelación por XML
 </summary>
 
-Método pra realiza la cancelación mediante un XML de cancelación sellado con los UUID a cancelar.
+Método para realizar la cancelación mediante un XML de cancelación sellado con los UUID a cancelar.
 
 Este método recibe los siguientes parámetros:
 
-- Usuario y Contraseña ó Token
-- Url Servicios SW
+- Usuario y Contraseña o Token
+- URL de servicios SW
 - XML sellado con los UUID a cancelar.
 
-**Ejemplo de un xml de cancelación**
+**Ejemplo de un XML de cancelación**
 
 ```xml
 <Cancelacion xmlns="http://cancelacfd.sat.gob.mx"
@@ -545,7 +547,7 @@ const params = {
   user: "demo",
   password: "123456789",
   url: "https://services.test.sw.com.mx",
-  xml: '<?xml version="1.0" encoding="utf-8"?><Cancelacion xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"...',
+  xml: '<?xml version="1.0" encoding="utf-8"?><Cancelacion xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"...'
 };
 
 CancelationService.Set(params).CancelationByXML((err, res) => {
@@ -565,7 +567,7 @@ const CancelationService = require("sw-sdk-nodejs").CancelationService;
 const params = {
   token: "T2lYQ0t4L0R...",
   url: "https://services.test.sw.com.mx",
-  xml: '<?xml version="1.0" encoding="utf-8"?><Cancelacion xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"...',
+  xml: '<?xml version="1.0" encoding="utf-8"?><Cancelacion xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"...'
 };
 
 CancelationService.Set(params).CancelationByXML((err, res) => {
@@ -584,18 +586,18 @@ CancelationService.Set(params).CancelationByXML((err, res) => {
 Cancelación por UUID
 </summary>
 
-Método para realiza la cancelacion mediante el UUID del comprobante a cancelar.
+Método para realizar la cancelación mediante el UUID del comprobante a cancelar.
 
 Este método recibe los siguientes parámetros:
 
-- Usuario y Contraseña ó Token
-- Url Servicios SW
+- Usuario y Contraseña o Token
+- URL de servicios SW
 - RFC emisor
 - UUID
 - Motivo
 - Folio Sustitución (`null` si el motivo de cancelación es diferente de `01`)
 
-**Ejemplo de consumo de la libreria para Cancelación por UUID con usuario y contraseña**
+**Ejemplo de consumo de la librería para Cancelación por UUID con usuario y contraseña**
 
 ```js
 const CancelationService = require("sw-sdk-nodejs").CancelationService;
@@ -607,7 +609,7 @@ const params = {
   rfc: "EKU9003173C9",
   uuid: "478569b5-c323-4dc4-91cf-b6e9f6979527",
   motivo: "02",
-  folioSustitucion: null,
+  folioSustitucion: null
 };
 
 CancelationService.Set(params).CancelationByUUID((err, res) => {
@@ -619,18 +621,18 @@ CancelationService.Set(params).CancelationByUUID((err, res) => {
 });
 ```
 
-**Ejemplo de consumo de la libreria para Cancelación por UUID con token**
+**Ejemplo de consumo de la librería para Cancelación por UUID con token**
 
 ```js
 const CancelationService = require("sw-sdk-nodejs").CancelationService;
 
 const params = {
-  token: "T2lYQ0t4L0R...",,
+  token: "T2lYQ0t4L0R...",
   url: "https://services.test.sw.com.mx",
   rfc: "EKU9003173C9",
   uuid: "478569b5-c323-4dc4-91cf-b6e9f6979527",
   motivo: "02",
-  folioSustitucion: null,
+  folioSustitucion: null
 };
 
 CancelationService.Set(params).CancelationByUUID((err, res) => {
@@ -646,16 +648,16 @@ CancelationService.Set(params).CancelationByUUID((err, res) => {
 
 #### Códigos de respuesta de folios de cancelación
 
-| Código | Mensaje                                   | Descripcion                                                                                                                                                                                                                                                  |
+| Código | Mensaje                                   | Descripción                                                                                                                                                                                                                                                  |
 | ------ | ----------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | 201    | Solicitud de cancelación exitosa          | Se considera una solicitud de cancelación exitosa, sin embargo esto no asegura su cancelación                                                                                                                                                                |
 | 202    | Folio Fiscal Previamente Cancelado        | Se considera solicitud de cancelación previamente enviada. Estatus Cancelado ante el SAT                                                                                                                                                                     |
 | 203    | Folio Fiscal No Correspondiente al Emisor |                                                                                                                                                                                                                                                              |
 | 204    | Folio Fiscal No Aplicable a Cancelación   |                                                                                                                                                                                                                                                              |
-| 205    | Folio Fiscal No Existente                 | El SAT da una prorroga de 48 hrs para que el comprobante aparezca con estatus Vigente posterior al envió por parte del Proveedor de Certificación de CFDI. Puede que algunos comprobantes no aparezcan al momento, es necesario esperar por lo menos 48 hrs. |
+| 205    | Folio Fiscal No Existente                 | El SAT da una prórroga de 48 hrs para que el comprobante aparezca con estatus Vigente posterior al envío por parte del Proveedor de Certificación de CFDI. Puede que algunos comprobantes no aparezcan al momento, es necesario esperar por lo menos 48 hrs. |
 
 > [!TIP]
-> Para mayor referencia de estas respuesta, puedes visitar el siguiente [link](https://developers.sw.com.mx/knowledge-base/cancelacion-cfdi/).
+> Para mayor referencia de estas respuestas, puedes visitar el siguiente [link](https://developers.sw.com.mx/knowledge-base/cancelacion-cfdi/).
 
 ---
 
@@ -668,13 +670,13 @@ Consulta de Timbres
 
 Método mediante el cual puedes realizar la consulta de tu saldo para consumir los servicios de SW.
 
-Este método recibe los siguientes parametros:
+Este método recibe los siguientes parámetros:
 
-- Usuario y Contraseña ó Token
-- Url Servicios SW (Para autenticación por usuario y contraseña)
-- Url Servicios Api 
+- Usuario y Contraseña o Token
+- URL de servicios SW (Para autenticación por usuario y contraseña)
+- URL de servicios API 
 
-**Ejemplo de consumo de la libreria para Consulta de Timbres con usuario y contraseña**
+**Ejemplo de consumo de la librería para Consulta de Timbres con usuario y contraseña**
 
 ```js
 const AccountBalanceService = require("sw-sdk-nodejs").AccountBalance;
@@ -695,13 +697,13 @@ AccountBalanceService.Set(params).GetAccountBalance((err, res) => {
 });
 ```
 
-**Ejemplo de consumo de la libreria para Consulta de Timbres con token**
+**Ejemplo de consumo de la librería para Consulta de Timbres con token**
 
 ```js
 const AccountBalanceService = require("sw-sdk-nodejs").AccountBalance;
 
 const params = {
-  token: "T2lYQ0t4L0R...",,
+  token: "T2lYQ0t4L0R...",
   url: "https://services.test.sw.com.mx",
   urlApi: "https://api.test.sw.com.mx"
 };
@@ -721,15 +723,15 @@ AccountBalanceService.Set(params).GetAccountBalance((err, res) => {
 Agregar Timbres
 </summary>
 
-Método para agregar timmbres a una cuenta hija o subcuenta.
+Método para agregar timbres a una cuenta hija o subcuenta.
 
-Este método recibe los siguientes parametros:
+Este método recibe los siguientes parámetros:
 
-- Usuario y Contraseña ó Token
-- Url Servicios SW (Para autenticación por usuario y contraseña)
-- Url Servicios Api 
+- Usuario y Contraseña o Token
+- URL de servicios SW (Para autenticación por usuario y contraseña)
+- URL de servicios API 
 
-**Ejemplo de consumo de la libreria para Agregar Timbres con usuario y contraseña**
+**Ejemplo de consumo de la librería para Agregar Timbres con usuario y contraseña**
 
 ```js
 const AccountBalanceService = require("sw-sdk-nodejs").AccountBalance;
@@ -750,13 +752,13 @@ AccountBalanceService.Set(params).AddStamps("fafb2ac2-62ca-49f8-91de-14cea73b01e
 });
 ```
 
-**Ejemplo de consumo de la libreria para Agregar Timbres con token**
+**Ejemplo de consumo de la librería para Agregar Timbres con token**
 
 ```js
 const AccountBalanceService = require("sw-sdk-nodejs").AccountBalance;
 
 const params = {
-  token: "T2lYQ0t4L0R...",,
+  token: "T2lYQ0t4L0R...",
   url: "https://services.test.sw.com.mx",
   urlApi: "https://api.test.sw.com.mx"
 };
@@ -778,13 +780,13 @@ Eliminar Timbres
 
 Método para remover timbres a una cuenta hija o subcuenta.
 
-Este método recibe los siguientes parametros:
+Este método recibe los siguientes parámetros:
 
-- Usuario y Contraseña ó Token
-- Url Servicios SW (Para autenticación por Usuario y Contraseña)
-- Url Servicios Api 
+- Usuario y Contraseña o Token
+- URL de servicios SW (Para autenticación por Usuario y Contraseña)
+- URL de servicios API 
 
-**Ejemplo de consumo de la libreria para Eliminar Timbres con usuario y contraseña**
+**Ejemplo de consumo de la librería para Eliminar Timbres con usuario y contraseña**
 
 ```js
 const AccountBalanceService = require("sw-sdk-nodejs").AccountBalance;
@@ -805,13 +807,13 @@ AccountBalanceService.Set(params).RemoveStamps("fafb2ac2-62ca-49f8-91de-14cea73b
 });
 ```
 
-**Ejemplo de consumo de la libreria para Eliminar Timbres con token**
+**Ejemplo de consumo de la librería para Eliminar Timbres con token**
 
 ```js
 const AccountBalanceService = require("sw-sdk-nodejs").AccountBalance;
 
 const params = {
-  token: "T2lYQ0t4L0R...",,
+  token: "T2lYQ0t4L0R...",
   url: "https://services.test.sw.com.mx",
   urlApi: "https://api.test.sw.com.mx"
 };
