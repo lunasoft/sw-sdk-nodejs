@@ -730,6 +730,9 @@ Este método recibe los siguientes parámetros:
 - Usuario y Contraseña o Token
 - URL de servicios SW (Para autenticación por usuario y contraseña)
 - URL de servicios API 
+- ID del usuario al que se le agregarán los timbres
+- Número de timbres a agregar
+- Comentario del movimiento (opcional)
 
 **Ejemplo de consumo de la librería para Agregar Timbres con usuario y contraseña**
 
@@ -743,7 +746,11 @@ const params = {
   urlApi: "https://api.test.sw.com.mx"
 };
 
-AccountBalanceService.Set(params).AddStamps("fafb2ac2-62ca-49f8-91de-14cea73b01eb", 1, "Prueba JS", (err, res) => {
+const idUser = "fafb2ac2-62ca-49f8-91de-14cea73b01eb";
+const stampsToAdd = 1;
+const comment = "Prueba JS";
+
+AccountBalanceService.Set(params).AddStamps(idUser, stampsToAdd, comment, (err, res) => {
   if (err) {
     console.error("Error:", err);
   } else {
@@ -763,7 +770,11 @@ const params = {
   urlApi: "https://api.test.sw.com.mx"
 };
 
-AccountBalanceService.Set(params).AddStamps("fafb2ac2-62ca-49f8-91de-14cea73b01eb", 1, "Prueba JS", (err, res) => {
+const idUser = "fafb2ac2-62ca-49f8-91de-14cea73b01eb";
+const stampsToAdd = 1;
+const comment = "Prueba JS";
+
+AccountBalanceService.Set(params).AddStamps(idUser, stampsToAdd, comment, (err, res) => {
   if (err) {
     console.error("Error:", err);
   } else {
@@ -785,6 +796,9 @@ Este método recibe los siguientes parámetros:
 - Usuario y Contraseña o Token
 - URL de servicios SW (Para autenticación por Usuario y Contraseña)
 - URL de servicios API 
+- ID del usuario al que se le eliminarán los timbres
+- Número de timbres a eliminar
+- Comentario del movimiento (opcional)
 
 **Ejemplo de consumo de la librería para Eliminar Timbres con usuario y contraseña**
 
@@ -798,7 +812,11 @@ const params = {
   urlApi: "https://api.test.sw.com.mx"
 };
 
-AccountBalanceService.Set(params).RemoveStamps("fafb2ac2-62ca-49f8-91de-14cea73b01eb", 1, "Prueba JS", (err, res) => {
+const idUser = "fafb2ac2-62ca-49f8-91de-14cea73b01eb";
+const stampsToRemove = 1;
+const comment = "Prueba JS";
+
+AccountBalanceService.Set(params).RemoveStamps(idUser, stampsToRemove, comment, (err, res) => {
   if (err) {
     console.error("Error:", err);
   } else {
@@ -818,7 +836,11 @@ const params = {
   urlApi: "https://api.test.sw.com.mx"
 };
 
-AccountBalanceService.Set(params).RemoveStamps("fafb2ac2-62ca-49f8-91de-14cea73b01eb", 1, "Prueba JS", (err, res) => {
+const idUser = "fafb2ac2-62ca-49f8-91de-14cea73b01eb";
+const stampsToRemove = 1;
+const comment = "Prueba JS";
+
+AccountBalanceService.Set(params).RemoveStamps(idUser, stampsToRemove, comment, (err, res) => {
   if (err) {
     console.error("Error:", err);
   } else {
