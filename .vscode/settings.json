@@ -1,0 +1,9 @@
+{
+  "mochaExplorer.files": "lib/Tests/**/*.js",
+  "mochaExplorer.timeout": 30,
+  "mochaExplorer.ui": "tdd",
+  "mochaExplorer.require": [],
+  "mochaExplorer.env": {
+    "NODE_ENV": "test"
+  }
+}
