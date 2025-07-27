@@ -316,6 +316,338 @@ IssueService.Set(params).IssueV1(xmlB64, (err, res) => {
 
 </details>
 
+<details>
+<summary>
+Emisión Timbrado JSON
+</summary>
+
+Método que realiza el sellado y timbrado de un comprobante CFDI desde JSON.
+
+Este método recibe los siguientes parámetros:
+
+- Archivo JSON con la estructura del CFDI
+- Usuario y Contraseña o Token
+- URL de servicios SW
+
+**Ejemplo de consumo de la librería para Timbrado JSON utilizando usuario y contraseña**
+
+```js
+const IssueJsonService = require("sw-sdk-nodejs").IssueJsonService;
+
+const params = {
+  user: "demo",
+  password: "123456789",
+  url: "https://services.test.sw.com.mx"
+};
+
+const json = {
+  "version": "4.0",
+  "fecha": "2024-01-01T12:00:00",
+  "emisor": {
+    "rfc": "EKU9003173C9",
+    "nombre": "ESCUELA KEMPER URGATE",
+    "regimenFiscal": "601"
+  },
+  "receptor": {
+    "rfc": "URE180429TM6",
+    "nombre": "UNIVERSIDAD REGIOMONTANA",
+    "usoCFDI": "G03"
+  },
+  "conceptos": [
+    {
+      "claveProdServ": "01010101",
+      "cantidad": 1,
+      "claveUnidad": "H87",
+      "unidad": "Pieza",
+      "descripcion": "Producto de prueba",
+      "valorUnitario": 100.00,
+      "importe": 100.00
+    }
+  ],
+  "subTotal": 100.00,
+  "moneda": "MXN",
+  "total": 116.00,
+  "tipoDeComprobante": "I",
+  "formaPago": "01",
+  "metodoPago": "PUE",
+  "lugarExpedicion": "06400"
+};
+
+IssueJsonService.Set(params).IssueJsonV1(json, (err, res) => {
+  if (err) {
+    console.error("Error:", err);
+  } else {
+    console.log(res);
+  }
+});
+```
+
+**Ejemplo de consumo de la librería para Timbrado JSON utilizando token**
+
+```js
+const IssueJsonService = require("sw-sdk-nodejs").IssueJsonService;
+
+const params = {
+  token: "T2lYQ0t4L0R...",
+  url: "https://services.test.sw.com.mx"
+};
+
+const json = {
+  "version": "4.0",
+  "fecha": "2024-01-01T12:00:00",
+  "emisor": {
+    "rfc": "EKU9003173C9",
+    "nombre": "ESCUELA KEMPER URGATE",
+    "regimenFiscal": "601"
+  },
+  "receptor": {
+    "rfc": "URE180429TM6",
+    "nombre": "UNIVERSIDAD REGIOMONTANA",
+    "usoCFDI": "G03"
+  },
+  "conceptos": [
+    {
+      "claveProdServ": "01010101",
+      "cantidad": 1,
+      "claveUnidad": "H87",
+      "unidad": "Pieza",
+      "descripcion": "Producto de prueba",
+      "valorUnitario": 100.00,
+      "importe": 100.00
+    }
+  ],
+  "subTotal": 100.00,
+  "moneda": "MXN",
+  "total": 116.00,
+  "tipoDeComprobante": "I",
+  "formaPago": "01",
+  "metodoPago": "PUE",
+  "lugarExpedicion": "06400"
+};
+
+IssueJsonService.Set(params).IssueJsonV1(json, (err, res) => {
+  if (err) {
+    console.error("Error:", err);
+  } else {
+    console.log(res);
+  }
+});
+```
+
+**Funciones disponibles**
+- IssueJsonV1(json)
+- IssueJsonV2(json)
+- IssueJsonV3(json)
+- IssueJsonV4(json)
+
+</details>
+
+## Timbrado V4
+
+<details>
+<summary>
+Timbrado CFDI V4
+</summary>
+
+Método que recibe el contenido de un **XML** previamente sellado en formato **string** o **base64** con funcionalidades adicionales como customId, PDF y envio por email.
+
+> [!IMPORTANT]
+> El envío en formato **base64** es opcional, para utilizarlo se debe indicar con _true_, por defecto se tomará el valor _false_.
+
+Este método recibe los siguientes parámetros:
+
+- Archivo en formato **string** o **base64**
+- Usuario y Contraseña o Token
+- URL de servicios SW
+- Opciones adicionales (customId, pdf, email)
+
+**Ejemplo de consumo de la librería para Timbrado CFDI V4 con todas las opciones**
+
+```js
+const fs = require("fs");
+const path = require("path");
+const StampServiceV4 = require("sw-sdk-nodejs").StampServiceV4;
+
+const params = {
+  token: "T2lYQ0t4L0R...",
+  url: "https://services.test.sw.com.mx"
+};
+
+const xmlPath = path.join(__dirname, "fileSign.xml");
+const xml = fs.readFileSync(xmlPath, "utf8");
+
+const customServiceV4 = {
+  customId: "FACT-2024-001",
+  pdf: true,
+  email: ["test@example.com", "admin@example.com"]
+};
+
+StampServiceV4.Set(params).ServiceV4StampV1(xml, (err, res) => {
+  if (err) {
+    console.error("Error:", err);
+  } else {
+    console.log(res);
+  }
+}, false, customServiceV4);
+```
+
+**Funciones disponibles**
+- ServiceV4StampV1(xml, base64, customServiceV4)
+- ServiceV4StampV2(xml, base64, customServiceV4)
+- ServiceV4StampV3(xml, base64, customServiceV4)
+- ServiceV4StampV4(xml, base64, customServiceV4)
+
+**Opciones de customServiceV4**
+- `customId`: Identificador personalizado (máximo 100 caracteres)
+- `pdf`: Generar PDF del documento timbrado 
+- `email`: Array de correos (máximo 10 correos)
+</details>
+
+<details>
+<summary>
+Emisión Timbrado V4
+</summary>
+
+Método que realiza el sellado y timbrado de un comprobante CFDI con funcionalidades adicionales como customId, PDF y notificaciones por email.
+
+> [!IMPORTANT]
+> El envío en formato **base64** es opcional, para utilizarlo se debe indicar con _true_, por defecto se tomará el valor _false_.
+
+Este método recibe los siguientes parámetros:
+
+- Archivo en formato **string** o **base64**
+- Usuario y Contraseña o Token
+- URL de servicios SW
+- Opciones adicionales (customId, pdf, email)
+
+**Ejemplo de consumo de la librería para Emisión Timbrado V4 con todas las opciones**
+
+```js
+const fs = require("fs");
+const path = require("path");
+const IssueServiceV4 = require("sw-sdk-nodejs").IssueServiceV4;
+
+const params = {
+  token: "T2lYQ0t4L0R...",
+  url: "https://services.test.sw.com.mx"
+};
+
+const xmlPath = path.join(__dirname, "file.xml");
+const xml = fs.readFileSync(xmlPath, "utf8");
+
+const customServiceV4 = {
+  customId: "FACT-2024-001",
+  pdf: true,
+  email: ["test@example.com", "admin@example.com"]
+};
+
+IssueServiceV4.Set(params).ServiceV4IssueV1(xml, (err, res) => {
+  if (err) {
+    console.error("Error:", err);
+  } else {
+    console.log(res);
+  }
+}, false, customServiceV4);
+```
+
+**Funciones disponibles**
+- ServiceV4IssueV1(xml, base64, customServiceV4)
+- ServiceV4IssueV2(xml, base64, customServiceV4)
+- ServiceV4IssueV3(xml, base64, customServiceV4)
+- ServiceV4IssueV4(xml, base64, customServiceV4)
+
+**Opciones de customServiceV4**
+- `customId`: Identificador personalizado (máximo 100 caracteres)
+- `pdf`: Generar PDF del documento timbrado
+- `email`: Array de correos (máximo 10 correos)
+
+</details>
+
+<details>
+<summary>
+Emisión Timbrado JSON V4
+</summary>
+
+Método que realiza el sellado y timbrado de un comprobante CFDI desde JSON con funcionalidades adicionales como customId, PDF y notificaciones por email.
+
+Este método recibe los siguientes parámetros:
+
+- Archivo JSON con la estructura del CFDI
+- Usuario y Contraseña o Token
+- URL de servicios SW
+- Opciones adicionales (customId, pdf, email)
+
+**Ejemplo de consumo de la librería para Timbrado JSON V4 con todas las opciones**
+
+```js
+const IssueJsonServiceV4 = require("sw-sdk-nodejs").IssueJsonServiceV4;
+
+const params = {
+  token: "T2lYQ0t4L0R...",
+  url: "https://services.test.sw.com.mx"
+};
+
+const json = {
+  "version": "4.0",
+  "fecha": "2024-01-01T12:00:00",
+  "emisor": {
+    "rfc": "EKU9003173C9",
+    "nombre": "ESCUELA KEMPER URGATE",
+    "regimenFiscal": "601"
+  },
+  "receptor": {
+    "rfc": "URE180429TM6",
+    "nombre": "UNIVERSIDAD REGIOMONTANA",
+    "usoCFDI": "G03"
+  },
+  "conceptos": [
+    {
+      "claveProdServ": "01010101",
+      "cantidad": 1,
+      "claveUnidad": "H87",
+      "unidad": "Pieza",
+      "descripcion": "Producto de prueba",
+      "valorUnitario": 100.00,
+      "importe": 100.00
+    }
+  ],
+  "subTotal": 100.00,
+  "moneda": "MXN",
+  "total": 116.00,
+  "tipoDeComprobante": "I",
+  "formaPago": "01",
+  "metodoPago": "PUE",
+  "lugarExpedicion": "06400"
+};
+
+const customServiceV4 = {
+  customId: "FACT-2024-001",
+  pdf: true,
+  email: ["test@example.com", "admin@example.com"]
+};
+
+IssueJsonServiceV4.Set(params).ServiceV4IssueJsonV1(json, (err, res) => {
+  if (err) {
+    console.error("Error:", err);
+  } else {
+    console.log(res);
+  }
+}, customServiceV4);
+```
+
+**Funciones disponibles**
+- ServiceV4IssueJsonV1(json, customServiceV4)
+- ServiceV4IssueJsonV2(json, customServiceV4)
+- ServiceV4IssueJsonV3(json, customServiceV4)
+- ServiceV4IssueJsonV4(json, customServiceV4)
+
+**Opciones de customServiceV4**
+- `customId`: Identificador personalizado (máximo 100 caracteres)
+- `pdf`: Generar PDF del documento timbrado
+- `email`: Array de correos (máximo 10 correos)
+
+</details>
+
 > [!NOTE]
 > Existen varias versiones de respuesta, las cuales son las siguientes:
 
