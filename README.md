@@ -67,7 +67,9 @@ La librería cuenta con los servicios:
 
 - [Autenticación](#Autenticación)
 - [Timbrado](#Timbrado)
+- [Timbrado Retenciones](#Timbrado-Retenciones)
 - [Cancelación](#Cancelación)
+- [Cancelación Retenciones](#Cancelación-Retenciones)
 - [Saldo/Timbres](#Saldo/Timbres)
 
 ---
@@ -663,6 +665,101 @@ IssueJsonServiceV4.Set(params).ServiceV4IssueJsonV1(json, (err, res) => {
 
 ---
 
+## Timbrado Retenciones
+
+<details>
+<summary>
+Timbrado Retenciones
+</summary>
+
+Método que recibe el contenido de un **XML de retenciones** previamente sellado en formato **string**, si la retención y las credenciales del usuario son correctos devuelve el complemento timbre en un string (**TFD**), en caso contrario lanza una excepción.
+
+
+Este método recibe los siguientes parámetros:
+
+- Archivo en formato **string** o **base64**
+- Usuario y Contraseña o Token
+- URL de servicios SW
+
+**Ejemplo de consumo de la librería para Timbrado Retenciones en formato string utilizando usuario y contraseña**
+
+```js
+const fs = require("fs");
+const path = require("path");
+const StampRetentionService = require("sw-sdk-nodejs").StampRetentionService;
+
+const params = {
+  user: "demo",
+  password: "123456789",
+  url: "https://services.test.sw.com.mx"
+};
+
+const xmlPath = path.join(__dirname, "fileRetentionSign.xml");
+const xml = fs.readFileSync(xmlPath, "utf8");
+
+StampRetentionService.Set(params).StampV3(xml, (err, res) => {
+  if (err) {
+    console.error("Error:", err);
+  } else {
+    console.log(res);
+  }
+});
+```
+
+**Ejemplo de consumo de la librería para Timbrado Retenciones en formato string utilizando token**
+
+```js
+const fs = require("fs");
+const path = require("path");
+const StampRetentionService = require("sw-sdk-nodejs").StampRetentionService;
+
+const params = {
+  token: "T2lYQ0t4L0R...",
+  url: "https://services.test.sw.com.mx"
+};
+
+const xmlPath = path.join(__dirname, "fileRetentionSign.xml");
+const xml = fs.readFileSync(xmlPath, "utf8");
+
+StampRetentionService.Set(params).StampV3(xml, (err, res) => {
+  if (err) {
+    console.error("Error:", err);
+  } else {
+    console.log(res);
+  }
+});
+```
+
+**Ejemplo de consumo de la librería para Timbrado Retenciones en base64 utilizando token**
+
+```js
+const fs = require("fs");
+const path = require("path");
+const StampRetentionService = require("sw-sdk-nodejs").StampRetentionService;
+
+const isBase64 = true;
+const params = {
+  token: "T2lYQ0t4L0R...",
+  url: "https://services.test.sw.com.mx"
+};
+
+const xmlPath = path.join(__dirname, "fileRetentionSign.xml");
+const xml = fs.readFileSync(xmlPath, "utf8");
+const xmlB64 = Buffer.from(xml, "utf8").toString("base64");
+
+StampRetentionService.Set(params).StampV3(xmlB64, (err, res) => {
+  if (err) {
+    console.error("Error:", err);
+  } else {
+    console.log(res);
+  }
+}, isBase64);
+```
+
+</details>
+
+---
+
 ## Cancelación
 
 Método que realiza la cancelación de un documento XML, se puede realizar por varios métodos:
@@ -989,7 +1086,214 @@ CancelationService.Set(params).CancelationByUUID((err, res) => {
 | 205    | Folio Fiscal No Existente                 | El SAT da una prórroga de 48 hrs para que el comprobante aparezca con estatus Vigente posterior al envío por parte del Proveedor de Certificación de CFDI. Puede que algunos comprobantes no aparezcan al momento, es necesario esperar por lo menos 48 hrs. |
 
 > [!TIP]
-> Para mayor referencia de estas respuestas, puedes visitar el siguiente [link](https://developers.sw.com.mx/knowledge-base/cancelacion-cfdi/).
+> Para mayor referencia de estas respuestas, puedes visitar el siguiente [link](https://developers.sw.com.mx/knowledge-base/cancelacion-retenciones-cfdi-rest/).
+
+---
+
+## Cancelación Retenciones
+
+Método que realiza la cancelación de un documento XML de retenciones, se puede realizar por varios métodos:
+
+<details>
+<summary>
+Cancelación Retenciones por CSD
+</summary>
+
+Método que realiza la cancelación de retenciones mediante los CSD.
+
+Este método recibe los siguientes parámetros:
+
+- Usuario y Contraseña o Token
+- URL de servicios SW
+- UUID
+- Password (CSD)
+- RFC emisor
+- Archivo CSD en **base64**
+- Archivo KEY en **base64**
+- Motivo
+- Folio Sustitución (`null` si el motivo de cancelación es diferente de `01`)
+
+**Ejemplo de consumo de la librería para Cancelación Retenciones por CSD utilizando usuario y contraseña**
+
+```js
+const CancelationRetentionService = require("sw-sdk-nodejs").CancelationRetentionService;
+
+const params = {
+  user: "demo",
+  password: "123456789",
+  url: "https://services.test.sw.com.mx",
+  uuid: "06a46e4b-b154-4c12-bb77-f9a63ed55ff2",
+  passwordCer: "123456789",
+  rfc: "LAN7008173R5",
+  b64Cer: "MIIFxTCCA62...",
+  b64Key: "MIIFDjBABgk...",
+  motivo: "02",
+  folioSustitucion: null
+};
+
+CancelationRetentionService.Set(params).CancelationByCSD((err, res) => {
+  if (err) {
+    console.error("Error:", err);
+  } else {
+    console.log(res);
+  }
+});
+```
+
+**Ejemplo de consumo de la librería para Cancelación Retenciones por CSD utilizando token**
+
+```js
+const CancelationRetentionService = require("sw-sdk-nodejs").CancelationRetentionService;
+
+const params = {
+  token: "T2lYQ0t4L0R...",
+  url: "https://services.test.sw.com.mx",
+  uuid: "06a46e4b-b154-4c12-bb77-f9a63ed55ff2",
+  passwordCer: "123456789",
+  rfc: "LAN7008173R5",
+  b64Cer: "MIIFxTCCA62...",
+  b64Key: "MIIFDjBABgk...",
+  motivo: "02",
+  folioSustitucion: null
+};
+
+CancelationRetentionService.Set(params).CancelationByCSD((err, res) => {
+  if (err) {
+    console.error("Error:", err);
+  } else {
+    console.log(res);
+  }
+});
+```
+
+</details>
+
+<details>
+<summary>
+Cancelación Retenciones por PFX
+</summary>
+
+Método para realizar la cancelación de retenciones mediante el PFX.
+
+Este método recibe los siguientes parámetros:
+
+- Usuario y Contraseña o Token
+- URL de servicios SW
+- Archivo PFX en **base64**
+- RFC emisor
+- Password (PFX)
+- UUID
+- Motivo
+- Folio Sustitución (`null` si el motivo de cancelación es diferente de `01`)
+
+**Ejemplo de consumo de la librería para Cancelación Retenciones por PFX utilizando usuario y contraseña**
+
+```js
+const CancelationRetentionService = require("sw-sdk-nodejs").CancelationRetentionService;
+
+const params = {
+  user: "demo",
+  password: "123456789",
+  url: "https://services.test.sw.com.mx",
+  uuid: "06a46e4b-b154-4c12-bb77-f9a63ed55ff2",
+  passwordPfx: "123456789",
+  rfc: "LAN7008173R5",
+  b64Pfx: "MIIL8QIBAzCCC...",
+  motivo: "02",
+  folioSustitucion: null
+};
+
+CancelationRetentionService.Set(params).CancelationByPFX((err, res) => {
+  if (err) {
+    console.error("Error:", err);
+  } else {
+    console.log(res);
+  }
+});
+```
+
+**Ejemplo de consumo de la librería para Cancelación Retenciones por PFX utilizando token**
+
+```js
+const CancelationRetentionService = require("sw-sdk-nodejs").CancelationRetentionService;
+
+const params = {
+  token: "T2lYQ0t4L0R...",
+  url: "https://services.test.sw.com.mx",
+  uuid: "06a46e4b-b154-4c12-bb77-f9a63ed55ff2",
+  passwordPfx: "123456789",
+  rfc: "LAN7008173R5",
+  b64Pfx: "MIIL8QIBAzCCC...",
+  motivo: "02",
+  folioSustitucion: null
+};
+
+CancelationRetentionService.Set(params).CancelationByPFX((err, res) => {
+  if (err) {
+    console.error("Error:", err);
+  } else {
+    console.log(res);
+  }
+});
+```
+
+</details>
+
+<details>
+<summary>
+Cancelación Retenciones por XML
+</summary>
+
+Método para realizar la cancelación de retenciones mediante un XML de cancelación sellado con los UUID a cancelar.
+
+Este método recibe los siguientes parámetros:
+
+- Usuario y Contraseña o Token
+- URL de servicios SW
+- XML sellado con los UUID a cancelar.
+
+**Ejemplo de consumo de la librería para Cancelación Retenciones por XML utilizando usuario y contraseña**
+
+```js
+const CancelationRetentionService = require("sw-sdk-nodejs").CancelationRetentionService;
+
+const params = {
+  user: "demo",
+  password: "123456789",
+  url: "https://services.test.sw.com.mx",
+  xml: "<?xml version=\"1.0\" encoding=\"utf-8\"?><Cancelacion xmlns=\"http://cancelacfd.sat.gob.mx\"...>"
+};
+
+CancelationRetentionService.Set(params).CancelationByXML((err, res) => {
+  if (err) {
+    console.error("Error:", err);
+  } else {
+    console.log(res);
+  }
+});
+```
+
+**Ejemplo de consumo de la librería para Cancelación Retenciones por XML utilizando token**
+
+```js
+const CancelationRetentionService = require("sw-sdk-nodejs").CancelationRetentionService;
+
+const params = {
+  token: "T2lYQ0t4L0R...",
+  url: "https://services.test.sw.com.mx",
+  xml: "<?xml version=\"1.0\" encoding=\"utf-8\"?><Cancelacion xmlns=\"http://cancelacfd.sat.gob.mx\"...>"
+};
+
+CancelationRetentionService.Set(params).CancelationByXML((err, res) => {
+  if (err) {
+    console.error("Error:", err);
+  } else {
+    console.log(res);
+  }
+});
+```
+
+</details>
 
 ---
 
