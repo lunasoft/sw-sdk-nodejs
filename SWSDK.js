@@ -7,5 +7,7 @@ module.exports = {
 	AccountBalance : require('./lib/SWServices/AccountBalance/AccountBalanceService.js'),
 	StampServiceV4 : require('./lib/SWServices/Stamp/StampServiceV4.js'),
 	IssueServiceV4 : require('./lib/SWServices/Issue/IssueServiceV4.js'),
-	IssueJsonServiceV4 : require('./lib/SWServices/IssueJson/IssueJsonServiceV4.js')
+	IssueJsonServiceV4 : require('./lib/SWServices/IssueJson/IssueJsonServiceV4.js'),
+	StampRetentionService : require('./lib/SWServices/StampRetention/StampRetentionService.js'),
+	CancelationRetentionService : require('./lib/SWServices/CancelationRetention/CancelationRetentionService.js')
 };
