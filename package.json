@@ -1,6 +1,6 @@
 {
   "name": "sw-sdk-nodejs",
-  "version": "2.2.0",
+  "version": "2.3.1",
   "description": "Node.js Library for SW Services",
   "homepage": "https://github.com/lunasoft/sw-sdk-nodejs",
   "authors": [
