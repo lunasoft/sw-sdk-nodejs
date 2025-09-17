@@ -677,7 +677,7 @@ Método que recibe el contenido de un **XML de retenciones** previamente sellado
 
 Este método recibe los siguientes parámetros:
 
-- Archivo en formato **string** o **base64**
+- Archivo en formato **string**
 - Usuario y Contraseña o Token
 - URL de servicios SW
 
