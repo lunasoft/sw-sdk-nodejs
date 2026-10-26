@@ -26,6 +26,8 @@ jobs:
       matrix:
         node: ['22', '24', '26']
     env:
+      # El servicio de pruebas valida la fecha de emision en hora de Mexico; el runner esta en UTC.
+      TZ: America/Mexico_City
       SDKTEST_TOKEN: ${{ secrets.SDKTEST_TOKEN }}
       SDKTEST_USER: ${{ secrets.SDKTEST_USER }}
       SDKTEST_PASSWORD: ${{ secrets.SDKTEST_PASSWORD }}
