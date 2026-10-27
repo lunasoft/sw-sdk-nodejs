@@ -1,0 +1,44 @@
+name: CI
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+# Permisos minimos: el workflow solo necesita leer el codigo.
+permissions:
+  contents: read
+
+# Maximo una ejecucion a la vez en todo el repositorio. Las demas esperan en
+# cola y nunca se cancela una en curso (las pruebas golpean el servicio de pruebas).
+concurrency:
+  group: sw-sdk-nodejs-ci
+  cancel-in-progress: false
+
+jobs:
+  pruebas:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      # Una version de Node a la vez para no ejecutar pruebas en paralelo.
+      max-parallel: 1
+      matrix:
+        node: ['22', '24', '26']
+    env:
+      # El servicio de pruebas valida la fecha de emision en hora de Mexico; el runner esta en UTC.
+      TZ: America/Mexico_City
+      SDKTEST_TOKEN: ${{ secrets.SDKTEST_TOKEN }}
+      SDKTEST_USER: ${{ secrets.SDKTEST_USER }}
+      SDKTEST_PASSWORD: ${{ secrets.SDKTEST_PASSWORD }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: ${{ matrix.node }}
+
+      - run: npm ci
+
+      - run: npm test

@@ -17,7 +17,7 @@ Librería **Node.js** para el consumo de los servicios de **SW sapien®**.
 ### Compatibilidad
 
 - CFDI 4.0
-- Node v6.11.0 o superior
+- Node.js con parches de seguridad vigentes (22.23.4, 24.22.1, 26.12.1 o superior)
 
 ---
 
